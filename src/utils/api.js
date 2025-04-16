@@ -1,3 +1,5 @@
+import { baseUrl } from "./constants";
+
 function checkResponse(res) {
   if (res.ok) {
     return res.json();
@@ -5,4 +7,21 @@ function checkResponse(res) {
   Promise.reject(`Error: ${res.status}`);
 }
 
-export { checkResponse };
+function getCaptions() {
+  return fetch(`${baseUrl}/captions`).then(checkResponse);
+}
+
+function addCaption({ caption, imageUrl }) {
+  return fetch(`${baseUrl}/captions`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      caption,
+      imageUrl,
+    }),
+  }).then(checkResponse);
+}
+
+export { getCaptions, addCaption };

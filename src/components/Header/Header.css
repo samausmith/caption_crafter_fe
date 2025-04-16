@@ -1,0 +1,105 @@
+.header {
+  display: flex;
+  align-items: center;
+  padding: 32px 0 28px;
+  font-weight: 700;
+  font-size: 20px;
+  line-height: 24px;
+}
+
+.header__link {
+  text-decoration: none;
+  color: black;
+  margin: 0 20px 0 auto;
+}
+
+.header__logo {
+  margin-right: 24px;
+  width: 80px;
+  height: 80px;
+}
+
+.header__title {
+  margin-left: auto;
+  color: black;
+  padding-left: 44px;
+}
+
+.header__date-location {
+  margin: 0;
+}
+
+.header__link-container {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+}
+
+.header__buttons {
+  display: flex;
+  gap: 20px;
+  align-items: center;
+}
+
+.header__add-clothes-btn {
+  margin: 0;
+  cursor: pointer;
+  background-color: transparent;
+  border: none;
+  font-weight: 700;
+  font-size: 20px;
+  line-height: 24px;
+  padding: 0;
+}
+
+.header__user-container {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.header__username {
+  margin: 0;
+  line-height: 24.8px;
+}
+
+.header__avatar {
+  height: 40px;
+  width: 40px;
+}
+
+.header__avatar-placeholder {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  font-size: 20px;
+  font-weight: 700;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #00000033;
+  color: white;
+  border: 1px solid #00000080;
+}
+
+.header__add-user-btn {
+  margin: 0;
+  cursor: pointer;
+  background-color: transparent;
+  border: none;
+  font-weight: 700;
+  font-size: 20px;
+  line-height: 24px;
+  padding: 0;
+}
+
+.header__login-btn {
+  margin: 0;
+  cursor: pointer;
+  background-color: transparent;
+  border: none;
+  font-weight: 700;
+  font-size: 20px;
+  line-height: 24px;
+  padding: 0;
+}

@@ -2,3 +2,51 @@
   src: url("../../vendor/fonts/CabinetGrotesk-Regular.woff") format("woff");
   font-family: "sans-serif";
 }
+
+.page {
+  background-color: #f3f3f3;
+  font-family: sans-serif;
+  font-weight: 700;
+}
+
+.page__content {
+  margin: 0 auto;
+  max-width: 1360px;
+  padding: 0 40px;
+}
+
+.modal__label {
+  margin-bottom: 24px;
+}
+
+.modal__input {
+  display: block;
+  margin-top: 8px;
+  border: none;
+  border-bottom: 1px solid black;
+  width: 100%;
+  padding: 0 0 4px;
+}
+
+.modal__radio-btns {
+  margin: 0;
+  padding: 0;
+  border: none;
+  display: flex;
+  flex-direction: column;
+}
+
+.modal__legend {
+  margin-bottom: 12px;
+}
+
+.modal__label_type_radio {
+  margin-bottom: 8px;
+  display: flex;
+  align-items: center;
+  gap: 11px;
+}
+
+.modal__label_type_radio:last-child {
+  margin-bottom: 0;
+}

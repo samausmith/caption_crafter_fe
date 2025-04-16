@@ -1,0 +1,95 @@
+.modal {
+  visibility: hidden;
+  display: flex;
+  justify-content: center;
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background-color: #0000004d;
+  align-items: center;
+  font-family: sans-serif;
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 20px;
+}
+
+.modal_open {
+  visibility: visible;
+}
+
+.modal__content {
+  background-color: white;
+  position: relative;
+  padding: 28px 28px 36px;
+  max-width: 496px;
+  box-sizing: border-box;
+  width: 100%;
+  border-radius: 20px;
+}
+
+.modal__form {
+  display: flex;
+  flex-direction: column;
+}
+
+.modal__title {
+  margin: 0;
+  padding-bottom: 24px;
+  font-weight: 700;
+  font-size: 16px;
+}
+
+.modal__close {
+  position: absolute;
+  top: 20px;
+  right: 28px;
+  background-image: url("../../assets/close-icon.svg");
+  height: 20px;
+  width: 20px;
+  background-size: cover;
+  background-repeat: no-repeat;
+  border-style: none;
+  padding: 0;
+  cursor: pointer;
+}
+
+.modal__container-btns {
+  display: flex;
+  margin-top: 8px;
+  gap: 12px;
+}
+
+.modal__submit {
+  padding: 0;
+  border-style: none;
+  width: 124px;
+  height: 36px;
+  background-color: #000000;
+  color: white;
+  cursor: pointer;
+  border-radius: 4px;
+  transition: background-color 0.3s ease;
+}
+
+.modal__submit:hover {
+  background-color: #00000099;
+}
+
+.modal__btn {
+  border-style: none;
+  cursor: pointer;
+  padding: 0;
+  background-color: transparent;
+  color: #00000080;
+  font-size: 16px;
+  line-height: 20px;
+  height: 36px;
+}
+
+.modal__login-failure {
+  color: #ff4d00;
+  font-size: 16px;
+  padding-bottom: 24px;
+}
