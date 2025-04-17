@@ -5,9 +5,6 @@ function Main({ handleCardClick, onCardLike, captionedImages }) {
   return (
     <main>
       <section className="cards">
-        <h2 className="cards__text">
-          Enter an image link to generate a caption!!!
-        </h2>
         <ul className="cards__list">
           {captionedImages &&
             captionedImages.map((card, index) => {

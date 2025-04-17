@@ -10,6 +10,7 @@ import CaptionedModal from "../CaptionedModal/CaptionedModal";
 import DeleteModal from "../DeleteModal/DeleteModal";
 import LoginModal from "../LoginModal/LoginModal";
 import RegisterModal from "../RegisterModal/RegisterModal";
+import * as auth from "../../utils/auth";
 
 function App() {
   const [imageUrl, setImageUrl] = useState("");
@@ -23,6 +24,19 @@ function App() {
   const [isLoginIncorrect, setIsLoginIncorrect] = useState(false);
   const [registrationMessage, setRegistrationMessage] = useState("");
   const token = localStorage.getItem("jwt");
+
+  function isTokenInvalid(token) {
+    if (!token) return true;
+
+    try {
+      const decoded = jwtDecode(token);
+
+      const currentTime = Date.now() / 1000;
+      return decoded.exp < currentTime;
+    } catch (error) {
+      return true;
+    }
+  }
 
   const handleRegistration = ({
     name,
@@ -143,7 +157,7 @@ function App() {
   };
 
   const onAddCaption = (values) => {
-    addCaption(values)
+    addCaption(values, token)
       .then((newCaption) => {
         setCaptionedImages((captions) => [newCaption, ...captions]);
       })
@@ -171,16 +185,28 @@ function App() {
       });
       const caption = res.data.choices[0].message.content;
       setResponse(JSON.stringify(res.data.choices[0].message.content, null, 2));
-      setCaptionedImages((captions) => [
-        ...captions,
-        { caption: caption, imageUrl: imageUrl },
-      ]);
-      console.log(caption);
       onAddCaption({ caption, imageUrl });
     } catch (error) {
       console.error("Error:", error);
     }
   };
+
+  useEffect(() => {
+    if (!isTokenInvalid(token)) {
+      auth
+        .getToken(token)
+        .then((user) => {
+          setCurrentUser(user);
+          setIsLoggedIn(true);
+        })
+        .catch((err) => {
+          console.error(err);
+        });
+    } else {
+      localStorage.removeItem("jwt");
+      setIsLoggedIn(false);
+    }
+  }, []);
 
   useEffect(() => {
     getCaptions()
@@ -198,7 +224,22 @@ function App() {
             handleRegisterClick={handleRegisterClick}
             handleLoginClick={handleLoginClick}
           />
-
+          <div className="page__content page__content_generate">
+            <h1>Enter an Image Link to Generate a Caption!!!</h1>
+            <input
+              className="modal__input"
+              type="text"
+              placeholder="Enter image URL"
+              value={imageUrl}
+              onChange={(e) => setImageUrl(e.target.value)}
+              style={{ width: "300px" }}
+            />
+            <button className="modal__submit" onClick={handleUpload}>
+              Generate Caption
+            </button>
+            {/* <pre>{JSON.stringify(response, null, 2)}</pre> */}
+            <pre>{response}</pre>
+          </div>
           <Routes>
             <Route
               path="/"
@@ -227,19 +268,7 @@ function App() {
           /> */}
           </Routes>
         </div>
-        <div className="page__content">
-          <h1>GPT-4 Vision Image Analysis</h1>
-          <input
-            type="text"
-            placeholder="Enter image URL"
-            value={imageUrl}
-            onChange={(e) => setImageUrl(e.target.value)}
-            style={{ width: "300px" }}
-          />
-          <button onClick={handleUpload}>Generate Caption</button>
-          {/* <pre>{JSON.stringify(response, null, 2)}</pre> */}
-          <pre>{response}</pre>
-        </div>
+
         <CaptionedModal
           activeModal={activeModal}
           card={selectedCard}

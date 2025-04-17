@@ -15,6 +15,13 @@
   padding: 0 40px;
 }
 
+.page__content_generate {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+}
+
 .modal__label {
   margin-bottom: 24px;
 }
@@ -22,10 +29,11 @@
 .modal__input {
   display: block;
   margin-top: 8px;
-  border: none;
-  border-bottom: 1px solid black;
+  border: #000000 solid 2px;
+  border-radius: 4px;
   width: 100%;
   padding: 0 0 4px;
+  margin-bottom: 12px;
 }
 
 .modal__radio-btns {
@@ -49,4 +57,20 @@
 
 .modal__label_type_radio:last-child {
   margin-bottom: 0;
+}
+
+.modal__submit {
+  padding: 0;
+  border-style: none;
+  width: 124px;
+  height: 40px;
+  background-color: #000000;
+  color: white;
+  cursor: pointer;
+  border-radius: 4px;
+  transition: background-color 0.3s ease;
+}
+
+.modal__submit:hover {
+  background-color: #00000099;
 }
