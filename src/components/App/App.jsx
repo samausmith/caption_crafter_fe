@@ -1,16 +1,23 @@
+import "./App.css";
 import { useState, useEffect } from "react";
 import { Routes, Route, useNavigate } from "react-router-dom";
-import "./App.css";
 import axios from "axios";
 import Header from "../Header/Header";
 import Main from "../Main/Main";
 import CurrentUserContext from "../../contexts/CurrentUserContext";
-import { addCaption, getCaptions } from "../../utils/api";
+import {
+  addCaption,
+  getCaptions,
+  addCardLike,
+  removeCardLike,
+  deleteCaption,
+} from "../../utils/api";
 import CaptionedModal from "../CaptionedModal/CaptionedModal";
 import DeleteModal from "../DeleteModal/DeleteModal";
 import LoginModal from "../LoginModal/LoginModal";
 import RegisterModal from "../RegisterModal/RegisterModal";
 import * as auth from "../../utils/auth";
+import { jwtDecode } from "jwt-decode";
 
 function App() {
   const [imageUrl, setImageUrl] = useState("");
@@ -28,13 +35,11 @@ function App() {
   function isTokenInvalid(token) {
     if (!token) return true;
 
-    try {
-      const decoded = jwtDecode(token);
+    const decoded = jwtDecode(token);
+    const currentTime = Date.now() / 1000;
 
-      const currentTime = Date.now() / 1000;
-      return decoded.exp < currentTime;
-    } catch (error) {
-      return true;
+    if (decoded.exp < currentTime) {
+      return false;
     }
   }
 
@@ -85,11 +90,11 @@ function App() {
       });
   };
 
-  const handleDeleteItem = (card) => {
-    deleteItem(card._id, token)
+  const handleDeleteCaption = (card) => {
+    deleteCaption(card._id, token)
       .then(() => {
-        setClothingItems((items) =>
-          items.filter((item) => item._id !== card._id)
+        setCaptionedImages((captions) =>
+          captions.filter((caption) => caption._id !== card._id)
         );
       })
       .then(closeModal)
@@ -130,8 +135,10 @@ function App() {
         // the first argument is the card's id
         addCardLike(card._id, token)
           .then((updatedCard) => {
-            setClothingItems((cards) =>
-              cards.map((item) => (item._id === card._id ? updatedCard : item))
+            setCaptionedImages((cards) =>
+              cards.map((caption) =>
+                caption._id === card._id ? updatedCard : caption
+              )
             );
           })
           .catch((err) => console.log(err))
@@ -140,8 +147,10 @@ function App() {
         // the first argument is the card's id
         removeCardLike(card._id, token)
           .then((updatedCard) => {
-            setClothingItems((cards) =>
-              cards.map((item) => (item._id === card._id ? updatedCard : item))
+            setCaptionedImages((cards) =>
+              cards.map((caption) =>
+                caption._id === card._id ? updatedCard : caption
+              )
             );
           })
           .catch((err) => console.log(err));
@@ -150,10 +159,6 @@ function App() {
   const closeModal = () => {
     setActiveModal("");
     setIsModalOpen(false);
-  };
-
-  const handleFileChange = (event) => {
-    setFile(event.target.files[0]);
   };
 
   const onAddCaption = (values) => {
@@ -192,7 +197,7 @@ function App() {
   };
 
   useEffect(() => {
-    if (!isTokenInvalid(token)) {
+    if (token && !isTokenInvalid(token)) {
       auth
         .getToken(token)
         .then((user) => {
@@ -201,9 +206,10 @@ function App() {
         })
         .catch((err) => {
           console.error(err);
+          localStorage.removeItem("jwt");
+          setIsLoggedIn(false);
         });
     } else {
-      localStorage.removeItem("jwt");
       setIsLoggedIn(false);
     }
   }, []);
@@ -234,7 +240,7 @@ function App() {
               onChange={(e) => setImageUrl(e.target.value)}
               style={{ width: "300px" }}
             />
-            <button className="modal__submit" onClick={handleUpload}>
+            <button className="modal__generate-btn" onClick={handleUpload}>
               Generate Caption
             </button>
             {/* <pre>{JSON.stringify(response, null, 2)}</pre> */}
@@ -281,7 +287,7 @@ function App() {
           card={selectedCard}
           closeModal={closeModal}
           handleOverlayClose={handleOverlayClose}
-          handleDeleteItem={handleDeleteItem}
+          handleDeleteCaption={handleDeleteCaption}
         />
         <LoginModal
           isLoginIncorrect={isLoginIncorrect}

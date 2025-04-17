@@ -59,11 +59,11 @@
   margin-bottom: 0;
 }
 
-.modal__submit {
+.modal__generate-btn {
   padding: 0;
   border-style: none;
   width: 124px;
-  height: 40px;
+  height: 48px;
   background-color: #000000;
   color: white;
   cursor: pointer;

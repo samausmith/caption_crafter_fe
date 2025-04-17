@@ -5,7 +5,7 @@ function DeleteModal({
   card,
   closeModal,
   handleOverlayClose,
-  handleDeleteItem,
+  handleDeleteCaption,
 }) {
   return (
     <div
@@ -28,7 +28,7 @@ function DeleteModal({
         </div>
         <div className="modal__delete-btns">
           <button
-            onClick={() => handleDeleteItem(card)}
+            onClick={() => handleDeleteCaption(card)}
             className="modal__confirm-delete-btn"
           >
             Yes, delete item

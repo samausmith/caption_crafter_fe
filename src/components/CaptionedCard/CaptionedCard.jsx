@@ -5,6 +5,7 @@ import CurrentUserContext from "../../contexts/CurrentUserContext";
 
 function CaptionedCard({ card, handleCardClick, onCardLike }) {
   const { currentUser, isLoggedIn } = useContext(CurrentUserContext);
+  const isLiked = card.likes.some((id) => id === currentUser._id);
 
   const handleOnClick = () => {
     handleCardClick(card);
@@ -13,9 +14,6 @@ function CaptionedCard({ card, handleCardClick, onCardLike }) {
   const handleLike = () => {
     onCardLike(card, isLiked);
   };
-
-  // const isLiked = card.likes.some((id) => id === currentUser._id);
-  const isLiked = false;
 
   const itemLikeButtonClassName = `card__like-btn ${
     isLiked ? "card__like-btn_liked" : "card__like-btn_hidden"
