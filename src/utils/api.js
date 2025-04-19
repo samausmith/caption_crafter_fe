@@ -11,18 +11,26 @@ function getCaptions() {
   return fetch(`${baseUrl}/captions`).then(checkResponse);
 }
 
-function addCaption({ caption, imageUrl }, token) {
-  const headers = {
-    "Content-Type": "application/json",
-  };
-
-  if (token) {
-    headers["authorization"] = `Bearer ${token}`;
-  }
-
+function addCaptionAsUser({ caption, imageUrl }, token) {
   return fetch(`${baseUrl}/captions`, {
     method: "POST",
-    headers,
+    headers: {
+      "Content-Type": "application/json",
+      authorization: `Bearer ${token}`,
+    },
+    body: JSON.stringify({
+      caption,
+      imageUrl,
+    }),
+  }).then(checkResponse);
+}
+
+function addCaption({ caption, imageUrl }) {
+  return fetch(`${baseUrl}/captions`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
     body: JSON.stringify({
       caption,
       imageUrl,
@@ -31,7 +39,7 @@ function addCaption({ caption, imageUrl }, token) {
 }
 
 function deleteCaption(cardId, token) {
-  return fetch(`${baseUrl}/items/${cardId}`, {
+  return fetch(`${baseUrl}/captions/${cardId}`, {
     method: "DELETE",
     headers: {
       "Content-Type": "application/json",
@@ -63,6 +71,7 @@ function removeCardLike(id, token) {
 export {
   getCaptions,
   addCaption,
+  addCaptionAsUser,
   deleteCaption,
   addCardLike,
   removeCardLike,

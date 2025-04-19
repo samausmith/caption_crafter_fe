@@ -1,0 +1,34 @@
+.page__content {
+  margin: 0 auto;
+  max-width: 1360px;
+  padding: 0 40px;
+}
+
+.page__content_generate {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  padding-bottom: 20px;
+}
+
+.page__caption-form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+
+.modal__label {
+  margin-bottom: 24px;
+}
+
+.modal__input {
+  display: block;
+  margin-top: 8px;
+  border: #000000 solid 2px;
+  border-radius: 4px;
+  width: 100%;
+  padding: 0;
+  margin-bottom: 12px;
+}

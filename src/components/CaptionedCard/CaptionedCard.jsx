@@ -1,6 +1,6 @@
 import "./CaptionedCard.css";
 import { useContext } from "react";
-import likeBtn from "../../assets/like-btn.svg";
+import likeBtn from "../../assets/like.svg";
 import CurrentUserContext from "../../contexts/CurrentUserContext";
 
 function CaptionedCard({ card, handleCardClick, onCardLike }) {
@@ -22,7 +22,6 @@ function CaptionedCard({ card, handleCardClick, onCardLike }) {
   return (
     <li className="card">
       <div className="card__header">
-        {/* <h2 className="card__name">{card.name}</h2> */}
         {isLoggedIn && (
           <img
             src={likeBtn}

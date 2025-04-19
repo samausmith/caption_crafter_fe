@@ -7,15 +7,20 @@ import Main from "../Main/Main";
 import CurrentUserContext from "../../contexts/CurrentUserContext";
 import {
   addCaption,
+  addCaptionAsUser,
   getCaptions,
   addCardLike,
   removeCardLike,
   deleteCaption,
 } from "../../utils/api";
+import CaptionForm from "../CaptionForm/CaptionForm";
 import CaptionedModal from "../CaptionedModal/CaptionedModal";
 import DeleteModal from "../DeleteModal/DeleteModal";
 import LoginModal from "../LoginModal/LoginModal";
 import RegisterModal from "../RegisterModal/RegisterModal";
+import Profile from "../Profile/Profile";
+import ProtectedRoute from "../ProtectedRoute";
+import EditProfileModal from "../EditProfileModal/EditProfileModal";
 import * as auth from "../../utils/auth";
 import { jwtDecode } from "jwt-decode";
 
@@ -31,6 +36,7 @@ function App() {
   const [isLoginIncorrect, setIsLoginIncorrect] = useState(false);
   const [registrationMessage, setRegistrationMessage] = useState("");
   const token = localStorage.getItem("jwt");
+  const navigate = useNavigate();
 
   function isTokenInvalid(token) {
     if (!token) return true;
@@ -42,6 +48,33 @@ function App() {
       return false;
     }
   }
+
+  const handleEditProfile = ({ name, avatar }) => {
+    const token = localStorage.getItem("jwt");
+    auth
+      .editProfile({ token, name, avatar })
+      .then((user) => {
+        setCurrentUser(user);
+      })
+      .then(closeModal)
+      .catch(console.error);
+  };
+
+  const handleLogOutClick = () => {
+    localStorage.removeItem("jwt");
+    navigate("/");
+    setIsLoggedIn(false);
+  };
+
+  const handleChangeProfileClick = () => {
+    setActiveModal("edit-profile");
+    setIsModalOpen(true);
+  };
+
+  const handleAddClick = () => {
+    setActiveModal("add-garment");
+    setIsModalOpen(true);
+  };
 
   const handleRegistration = ({
     name,
@@ -162,28 +195,25 @@ function App() {
   };
 
   const onAddCaption = (values) => {
-    addCaption(values, token)
-      .then((newCaption) => {
-        setCaptionedImages((captions) => [newCaption, ...captions]);
-      })
-      .catch(console.error);
+    if (token && !isTokenInvalid(token)) {
+      addCaptionAsUser(values, token)
+        .then((newCaption) => {
+          setCaptionedImages((captions) => [newCaption, ...captions]);
+        })
+        .catch(console.error);
+    } else {
+      addCaption(values)
+        .then((newCaption) => {
+          setCaptionedImages((captions) => [newCaption, ...captions]);
+        })
+        .catch(console.error);
+    }
   };
 
-  const handleUpload = async () => {
+  const handleUpload = async (e) => {
+    e.preventDefault();
     if (!imageUrl) return;
 
-    // const formData = new FormData();
-    // formData.append("image", file);
-
-    // try {
-    //   const res = await axios.post("http://localhost:3001/", formData, {
-    //     headers: { "Content-Type": "multipart/form-data" },
-    //   });
-    //   setResponse(res.data.choices[0].message.content);
-    // } catch (error) {
-    //   console.error("Error:", error);
-    //   setResponse("Error analyzing image");
-    // }
     try {
       const res = await axios.post("http://localhost:3001/generate", {
         imageUrl,
@@ -191,6 +221,7 @@ function App() {
       const caption = res.data.choices[0].message.content;
       setResponse(JSON.stringify(res.data.choices[0].message.content, null, 2));
       onAddCaption({ caption, imageUrl });
+      setImageUrl("");
     } catch (error) {
       console.error("Error:", error);
     }
@@ -227,54 +258,52 @@ function App() {
       <div className="page">
         <div className="page__content">
           <Header
+            handleLogOutClick={handleLogOutClick}
             handleRegisterClick={handleRegisterClick}
             handleLoginClick={handleLoginClick}
           />
-          <div className="page__content page__content_generate">
-            <h1>Enter an Image Link to Generate a Caption!!!</h1>
-            <input
-              className="modal__input"
-              type="text"
-              placeholder="Enter image URL"
-              value={imageUrl}
-              onChange={(e) => setImageUrl(e.target.value)}
-              style={{ width: "300px" }}
-            />
-            <button className="modal__generate-btn" onClick={handleUpload}>
-              Generate Caption
-            </button>
-            {/* <pre>{JSON.stringify(response, null, 2)}</pre> */}
-            <pre>{response}</pre>
-          </div>
           <Routes>
             <Route
               path="/"
               element={
-                <Main
-                  handleCardClick={handleCardClick}
-                  onCardLike={handleCardLike}
-                  captionedImages={captionedImages}
-                />
+                <div className="page__main">
+                  <CaptionForm
+                    imageUrl={imageUrl}
+                    setImageUrl={setImageUrl}
+                    handleUpload={handleUpload}
+                  />
+                  <Main
+                    handleCardClick={handleCardClick}
+                    onCardLike={handleCardLike}
+                    captionedImages={captionedImages}
+                  />
+                </div>
               }
             />
-            {/* <Route
-            path="/profile"
-            element={
-              <ProtectedRoute>
-                <Profile
-                  onCardLike={handleCardLike}
-                  handleAddClick={handleAddClick}
-                  handleCardClick={handleCardClick}
-                  clothingItems={clothingItems}
-                  handleChangeProfileClick={handleChangeProfileClick}
-                  handleLogOutClick={handleLogOutClick}
-                />
-              </ProtectedRoute>
-            }
-          /> */}
+            <Route
+              path="/profile"
+              element={
+                <ProtectedRoute>
+                  <Profile
+                    handleAddClick={handleAddClick}
+                    onCardLike={handleCardLike}
+                    handleCardClick={handleCardClick}
+                    captionedImages={captionedImages}
+                    handleChangeProfileClick={handleChangeProfileClick}
+                    handleLogOutClick={handleLogOutClick}
+                  />
+                </ProtectedRoute>
+              }
+            />
           </Routes>
         </div>
-
+        <EditProfileModal
+          handleEditProfile={handleEditProfile}
+          activeModal={activeModal}
+          closeModal={closeModal}
+          handleOverlayClose={handleOverlayClose}
+          isModalOpen={isModalOpen}
+        />
         <CaptionedModal
           activeModal={activeModal}
           card={selectedCard}

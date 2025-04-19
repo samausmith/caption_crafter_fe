@@ -1,12 +1,19 @@
-.modal__content_type_img {
-  max-width: 498px;
-  height: 610px;
+.modal__img-wrapper {
+  background-color: white;
+  position: relative;
   padding: 0;
+  max-width: 496px;
+  box-sizing: border-box;
+  width: 100%;
+  border-radius: 20px;
   overflow: hidden;
 }
 
-.modal__close {
+.modal__img-close {
+  color: white;
   position: absolute;
+  background-image: url("../../assets/close-icon-white.svg");
+  background-color: transparent;
   top: 20px;
   right: 28px;
   height: 20px;
@@ -18,9 +25,13 @@
   cursor: pointer;
 }
 
-.modal__close_white {
-  background-image: url("../../assets/close-icon-white.svg");
-  background-color: transparent;
+.modal__footer {
+  display: flex;
+  margin: 0 16px 32px;
+  flex-direction: column;
+  font-family: sans-serif;
+  font-size: 20px;
+  line-height: 24px;
 }
 
 .modal__img {
@@ -29,17 +40,6 @@
   border: none;
   margin: 0;
   padding: 0 0 20px;
-}
-
-.modal__footer {
-  display: flex;
-  gap: 12px;
-  margin-left: 32px;
-  margin-bottom: 32px;
-  flex-direction: column;
-  font-family: sans-serif;
-  font-size: 20px;
-  line-height: 24px;
 }
 
 .modal__caption {
@@ -53,16 +53,19 @@
 }
 
 .modal__delete-btn {
-  color: #ff4d00;
-  font-size: 20px;
-  width: 101px;
-  height: 24px;
-  margin: 0;
   background-color: transparent;
-  border-style: none;
-  position: absolute;
-  right: 32px;
-  padding: 0;
+  background-image: url("../../assets/delete-icon.svg");
+  border: none;
   cursor: pointer;
-  white-space: nowrap;
+  height: 32px;
+  width: 32px;
+  padding: 0;
+  position: absolute;
+  right: 10px;
+  top: 456px;
+  transition: background-image 0.3s ease;
+}
+
+.modal__delete-btn:hover {
+  background-image: url("../../assets/delete-icon-hover.svg");
 }

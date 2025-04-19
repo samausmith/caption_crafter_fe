@@ -4,7 +4,7 @@ import { useContext } from "react";
 import { Link } from "react-router-dom";
 import CurrentUserContext from "../../contexts/CurrentUserContext";
 
-function Header({ handleRegisterClick, handleLoginClick }) {
+function Header({ handleLogOutClick, handleRegisterClick, handleLoginClick }) {
   const { currentUser, isLoggedIn } = useContext(CurrentUserContext);
 
   return (
@@ -16,22 +16,26 @@ function Header({ handleRegisterClick, handleLoginClick }) {
       <div className="header__link">
         {isLoggedIn ? (
           <div className="header__link-container">
-            <div className="header__buttons">
-              <p className="header__username">{currentUser?.name}</p>
-            </div>
             {currentUser?.avatar ? (
               <Link to="/profile">
-                <img
-                  src={currentUser?.avatar}
-                  alt={currentUser?.name}
-                  className="header__avatar"
-                />
+                <div className="header__buttons">
+                  <p className="header__username">{currentUser?.name}</p>
+
+                  <img
+                    src={currentUser?.avatar}
+                    alt={currentUser?.name}
+                    className="header__avatar"
+                  />
+                </div>
               </Link>
             ) : (
               <div className="header__avatar-placeholder">
                 {currentUser?.name && currentUser.name.charAt(0)}
               </div>
             )}
+            <button onClick={handleLogOutClick} className="header__sign-out">
+              Sign Out
+            </button>
           </div>
         ) : (
           <div className="header__user-container">

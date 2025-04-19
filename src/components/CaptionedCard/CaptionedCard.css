@@ -39,8 +39,11 @@
 }
 
 .card__like-btn_liked {
-  background-image: url("../../assets/liked-btn.svg");
-  background-size: cover;
+  background-image: url("../../assets/liked-state.svg");
+  background-size: contain;
+  background-repeat: no-repeat;
+  width: 17px;
+  height: 14px;
 }
 
 .card__like-btn_hidden {

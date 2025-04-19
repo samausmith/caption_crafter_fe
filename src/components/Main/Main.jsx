@@ -2,9 +2,6 @@ import "./Main.css";
 import CaptionedCard from "../CaptionedCard/CaptionedCard";
 
 function Main({ handleCardClick, onCardLike, captionedImages }) {
-  captionedImages.map((card) => {
-    console.log(card._id);
-  });
   return (
     <main>
       <section className="cards">
