@@ -3,12 +3,7 @@ import { useContext, useState } from "react";
 import CaptionedCard from "../CaptionedCard/CaptionedCard";
 import CurrentUserContext from "../../contexts/CurrentUserContext";
 
-const CaptionsSection = ({
-  handleCardClick,
-  captionedImages,
-  handleAddClick,
-  onCardLike,
-}) => {
+const CaptionsSection = ({ handleCardClick, captionedImages, onCardLike }) => {
   const { currentUser } = useContext(CurrentUserContext);
   const [showFavorites, setShowFavorites] = useState(false);
 

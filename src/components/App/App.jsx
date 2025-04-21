@@ -28,7 +28,6 @@ import { jwtDecode } from "jwt-decode";
 function App() {
   const [isLoading, setIsLoading] = useState(false);
   const [imageUrl, setImageUrl] = useState("");
-  const [response, setResponse] = useState("");
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [currentUser, setCurrentUser] = useState({});
@@ -224,7 +223,6 @@ function App() {
         imageUrl,
       });
       const caption = res.data.choices[0].message.content;
-      setResponse(JSON.stringify(res.data.choices[0].message.content, null, 2));
       onAddCaption({ caption, imageUrl });
       setImageUrl("");
     } catch (error) {
