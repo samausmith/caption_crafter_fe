@@ -21,10 +21,12 @@ import RegisterModal from "../RegisterModal/RegisterModal";
 import Profile from "../Profile/Profile";
 import ProtectedRoute from "../ProtectedRoute";
 import EditProfileModal from "../EditProfileModal/EditProfileModal";
+import Preloader from "../Preloader/Preloader";
 import * as auth from "../../utils/auth";
 import { jwtDecode } from "jwt-decode";
 
 function App() {
+  const [isLoading, setIsLoading] = useState(false);
   const [imageUrl, setImageUrl] = useState("");
   const [response, setResponse] = useState("");
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -214,6 +216,9 @@ function App() {
     e.preventDefault();
     if (!imageUrl) return;
 
+    setIsLoading(true);
+    setActiveModal("preloader");
+
     try {
       const res = await axios.post("http://localhost:3001/generate", {
         imageUrl,
@@ -224,6 +229,9 @@ function App() {
       setImageUrl("");
     } catch (error) {
       console.error("Error:", error);
+    } finally {
+      setIsLoading(false);
+      setActiveModal("");
     }
   };
 
@@ -297,6 +305,7 @@ function App() {
             />
           </Routes>
         </div>
+        <Preloader isLoading={isLoading} activeModal={activeModal} />
         <EditProfileModal
           handleEditProfile={handleEditProfile}
           activeModal={activeModal}
