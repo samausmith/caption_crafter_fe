@@ -18,3 +18,9 @@
   list-style-type: none;
   gap: 21px;
 }
+
+@media screen and (max-width: 627px) {
+  .cards__list {
+    justify-content: center;
+  }
+}

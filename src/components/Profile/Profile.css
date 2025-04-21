@@ -7,5 +7,9 @@
 .profile__sideBar {
 }
 
-.profile__clothes {
+@media screen and (max-width: 627px) {
+  .profile {
+    gap: 10px;
+    margin-left: 20px;
+  }
 }

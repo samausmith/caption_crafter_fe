@@ -18,7 +18,7 @@ const Profile = ({
           handleLogOutClick={handleLogOutClick}
         />
       </section>
-      <section className="profile__clothes">
+      <section className="profile__captions">
         <CaptionsSection
           onCardLike={onCardLike}
           handleAddClick={handleAddClick}

@@ -79,3 +79,9 @@
 .modal__submit:hover {
   background-color: #00000099;
 }
+
+@media screen and (max-width: 627px) {
+  .page__content {
+    padding: 0;
+  }
+}

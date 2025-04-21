@@ -8,7 +8,9 @@ function CaptionForm({ imageUrl, setImageUrl, handleUpload }) {
     <>
       {isLoggedIn ? (
         <div className="page__content page__content_generate">
-          <h1>Enter an Image Link to Generate a Caption!!!</h1>
+          <h1 className="modal__header">
+            Enter an Image Link to Generate a Caption!!!
+          </h1>
           <form className="page__caption-form" onSubmit={handleUpload}>
             <input
               className="modal__input"
