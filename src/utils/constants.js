@@ -1,1 +1,4 @@
-export const baseUrl = "http://localhost:3001";
+export const baseUrl =
+  process.env.NODE_ENV === "production"
+    ? "https://api.caption-crafter.crabdance.com"
+    : "http://localhost:3001";

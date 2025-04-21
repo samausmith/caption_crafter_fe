@@ -1,12 +1,33 @@
-# React + Vite
+# Caption Crafter Frontend
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+This is the React frontend for the Caption Crafter web app — a tool that lets users generate poetic image captions using the OpenAI Vision API. Users can log in, upload image links, generate captions, and save their favorite ones.
 
-Currently, two official plugins are available:
+## Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- User registration and authentication
+- Upload image URLs to generate poetic captions
+- Save, view, delete, and like/unlike captions
+- View personal and favorited captions
+- Responsive, user-friendly UI
 
-## Expanding the ESLint configuration
+## Tech Stack
 
-If you are developing a production application, we recommend using TypeScript and enable type-aware lint rules. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+- React
+- React Router
+- Context API
+- CSS Flexbox
+- Axios for API requests
+
+## Future Implementations
+
+- Built-in text-to-speech tools
+- Add tags and short names to organize captions by tag or name
+- Allow an option to hide generated captions from others
+
+## Deployment
+
+- [Domain](https://www.caption-crafter.crabdance.com/)
+
+## Backend
+
+- [Backend](https://github.com/samausmith/caption_crafter_be.git)
