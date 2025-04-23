@@ -115,6 +115,8 @@ function App() {
             .catch((err) => {
               console.error(err);
             });
+        } else {
+          throw new Error("No token received or is invalid");
         }
       })
       .catch((error) => {
@@ -248,6 +250,7 @@ function App() {
         });
     } else {
       setIsLoggedIn(false);
+      localStorage.removeItem("jwt");
     }
   }, []);
 

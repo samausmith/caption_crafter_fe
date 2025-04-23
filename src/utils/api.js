@@ -4,7 +4,9 @@ function checkResponse(res) {
   if (res.ok) {
     return res.json();
   }
-  Promise.reject(`Error: ${res.status}`);
+  return res.json().then((err) => {
+    return Promise.reject({ status: res.status, body: err });
+  });
 }
 
 function getCaptions() {
