@@ -24,6 +24,7 @@ import EditProfileModal from "../EditProfileModal/EditProfileModal";
 import Preloader from "../Preloader/Preloader";
 import * as auth from "../../utils/auth";
 import { jwtDecode } from "jwt-decode";
+import { baseUrl } from "../../utils/constants";
 
 function App() {
   const [isLoading, setIsLoading] = useState(false);
@@ -221,7 +222,7 @@ function App() {
     setActiveModal("preloader");
 
     try {
-      const res = await axios.post("http://localhost:3001/generate", {
+      const res = await axios.post(`${baseUrl}/generate`, {
         imageUrl,
       });
       const caption = res.data.choices[0].message.content;
