@@ -1,4 +1,4 @@
-import { baseUrl } from "./constants";
+import { BASEURL } from "./constants";
 
 function checkResponse(res) {
   if (res.ok) {
@@ -9,12 +9,22 @@ function checkResponse(res) {
   });
 }
 
+function generateCaption(imageUrl) {
+  return fetch(`${BASEURL}/generate`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ imageUrl }),
+  }).then(checkResponse);
+}
+
 function getCaptions() {
-  return fetch(`${baseUrl}/captions`).then(checkResponse);
+  return fetch(`${BASEURL}/captions`).then(checkResponse);
 }
 
 function addCaptionAsUser({ caption, imageUrl }, token) {
-  return fetch(`${baseUrl}/captions`, {
+  return fetch(`${BASEURL}/captions`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -28,7 +38,7 @@ function addCaptionAsUser({ caption, imageUrl }, token) {
 }
 
 function addCaption({ caption, imageUrl }) {
-  return fetch(`${baseUrl}/captions`, {
+  return fetch(`${BASEURL}/captions`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -41,7 +51,7 @@ function addCaption({ caption, imageUrl }) {
 }
 
 function deleteCaption(cardId, token) {
-  return fetch(`${baseUrl}/captions/${cardId}`, {
+  return fetch(`${BASEURL}/captions/${cardId}`, {
     method: "DELETE",
     headers: {
       "Content-Type": "application/json",
@@ -51,7 +61,7 @@ function deleteCaption(cardId, token) {
 }
 
 function addCardLike(id, token) {
-  return fetch(`${baseUrl}/captions/${id}/likes`, {
+  return fetch(`${BASEURL}/captions/${id}/likes`, {
     method: "PUT",
     headers: {
       "Content-Type": "application/json",
@@ -61,7 +71,7 @@ function addCardLike(id, token) {
 }
 
 function removeCardLike(id, token) {
-  return fetch(`${baseUrl}/captions/${id}/likes`, {
+  return fetch(`${BASEURL}/captions/${id}/likes`, {
     method: "DELETE",
     headers: {
       "Content-Type": "application/json",
@@ -71,6 +81,7 @@ function removeCardLike(id, token) {
 }
 
 export {
+  generateCaption,
   getCaptions,
   addCaption,
   addCaptionAsUser,

@@ -1,15 +1,21 @@
 .profile {
   display: flex;
-  gap: 116px;
   margin-top: 20px;
+  max-width: 100%;
 }
 
 .profile__sideBar {
 }
 
+.profile__captions {
+}
 @media screen and (max-width: 627px) {
   .profile {
-    gap: 10px;
-    margin-left: 20px;
+    flex-direction: column;
+    padding-left: 20px;
+  }
+
+  .profile__sideBar {
+    justify-items: center;
   }
 }
