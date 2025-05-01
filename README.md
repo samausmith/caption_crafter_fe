@@ -13,7 +13,6 @@ This is the React frontend for the Caption Crafter web app — a tool that lets 
 ## Tech Stack
 
 - React
-- React Router
 - Context API
 - CSS Flexbox
 - Axios for API requests
@@ -22,7 +21,7 @@ This is the React frontend for the Caption Crafter web app — a tool that lets 
 
 - Built-in text-to-speech tools
 - Add tags and short names to organize captions by tag or name
-- Allow an option to hide generated captions from others
+- Allow an option to hide generated captions from other users
 
 ## Deployment
 

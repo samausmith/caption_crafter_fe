@@ -1,4 +1,5 @@
 .captionsSection {
+  max-width: 100%;
 }
 
 .captionsSection__header {
@@ -44,4 +45,14 @@
   padding: 0;
   list-style-type: none;
   gap: 21px;
+}
+
+@media screen and (max-width: 627px) {
+  .captionsSection {
+    justify-items: center;
+  }
+
+  .captionsSection__cards-list {
+    justify-content: center;
+  }
 }

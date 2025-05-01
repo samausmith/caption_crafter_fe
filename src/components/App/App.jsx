@@ -6,6 +6,7 @@ import Header from "../Header/Header";
 import Main from "../Main/Main";
 import CurrentUserContext from "../../contexts/CurrentUserContext";
 import {
+  generateCaption,
   addCaption,
   addCaptionAsUser,
   getCaptions,
@@ -24,7 +25,7 @@ import EditProfileModal from "../EditProfileModal/EditProfileModal";
 import Preloader from "../Preloader/Preloader";
 import * as auth from "../../utils/auth";
 import { jwtDecode } from "jwt-decode";
-import { baseUrl } from "../../utils/constants";
+import { BASEURL } from "../../utils/constants";
 
 function App() {
   const [isLoading, setIsLoading] = useState(false);
@@ -37,6 +38,7 @@ function App() {
   const [selectedCard, setSelectedCard] = useState({});
   const [isLoginIncorrect, setIsLoginIncorrect] = useState(false);
   const [registrationMessage, setRegistrationMessage] = useState("");
+  const [captionError, setCaptionError] = useState("");
   const token = localStorage.getItem("jwt");
   const navigate = useNavigate();
 
@@ -214,26 +216,27 @@ function App() {
     }
   };
 
-  const handleUpload = async (e) => {
+  const handleGenerateCaption = async (e) => {
     e.preventDefault();
     if (!imageUrl) return;
 
     setIsLoading(true);
     setActiveModal("preloader");
 
-    try {
-      const res = await axios.post(`${baseUrl}/generate`, {
-        imageUrl,
+    generateCaption(imageUrl)
+      .then((data) => {
+        const caption = data.choices[0].message.content;
+        onAddCaption({ caption, imageUrl });
+        setImageUrl("");
+      })
+      .catch((error) => {
+        console.error("Error:", error);
+        setCaptionError(error);
+      })
+      .finally(() => {
+        setIsLoading(false);
+        setActiveModal("");
       });
-      const caption = res.data.choices[0].message.content;
-      onAddCaption({ caption, imageUrl });
-      setImageUrl("");
-    } catch (error) {
-      console.error("Error:", error);
-    } finally {
-      setIsLoading(false);
-      setActiveModal("");
-    }
   };
 
   useEffect(() => {
@@ -266,12 +269,12 @@ function App() {
   return (
     <CurrentUserContext.Provider value={{ isLoggedIn, currentUser }}>
       <div className="page">
+        <Header
+          handleLogOutClick={handleLogOutClick}
+          handleRegisterClick={handleRegisterClick}
+          handleLoginClick={handleLoginClick}
+        />
         <div className="page__content">
-          <Header
-            handleLogOutClick={handleLogOutClick}
-            handleRegisterClick={handleRegisterClick}
-            handleLoginClick={handleLoginClick}
-          />
           <Routes>
             <Route
               path="/"
@@ -280,7 +283,8 @@ function App() {
                   <CaptionForm
                     imageUrl={imageUrl}
                     setImageUrl={setImageUrl}
-                    handleUpload={handleUpload}
+                    handleGenerateCaption={handleGenerateCaption}
+                    captionError={captionError}
                   />
                   <Main
                     handleCardClick={handleCardClick}

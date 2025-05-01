@@ -1,8 +1,8 @@
 import { checkResponse } from "./api";
-import { baseUrl } from "./constants";
+import { BASEURL } from "./constants";
 
 export function getToken(token) {
-  return fetch(`${baseUrl}/users/me`, {
+  return fetch(`${BASEURL}/users/me`, {
     method: "GET",
     headers: {
       "Content-Type": "application/json",
@@ -12,7 +12,7 @@ export function getToken(token) {
 }
 
 export function registerUser({ name, avatar, email, password }) {
-  return fetch(`${baseUrl}/signup`, {
+  return fetch(`${BASEURL}/signup`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -22,7 +22,7 @@ export function registerUser({ name, avatar, email, password }) {
 }
 
 export function loginUser({ email, password }) {
-  return fetch(`${baseUrl}/signin`, {
+  return fetch(`${BASEURL}/signin`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -32,7 +32,7 @@ export function loginUser({ email, password }) {
 }
 
 export function editProfile({ token, name, avatar }) {
-  return fetch(`${baseUrl}/users/me`, {
+  return fetch(`${BASEURL}/users/me`, {
     method: "PATCH",
     headers: {
       "Content-Type": "application/json",

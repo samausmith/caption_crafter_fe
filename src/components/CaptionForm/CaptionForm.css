@@ -1,50 +1,62 @@
-.page__content {
-  margin: 0 auto;
-  max-width: 1360px;
-  padding: 0 40px;
-}
-
-.page__content_generate {
+.caption-form {
   display: flex;
   justify-content: center;
   flex-direction: column;
   align-items: center;
-  padding-bottom: 20px;
+  padding: 0 40px 20px;
+  text-align: center;
 }
 
-.page__caption-form {
+.caption-form__form {
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 8px;
+  font-family: "CabinetGrotesk", sans-serif;
 }
 
-.modal__header {
+.caption-form__header {
+  font-family: "CabinetGrotesk", sans-serif;
 }
 
-.modal__label {
-  margin-bottom: 24px;
-}
-
-.modal__input {
+.caption-form__input {
   display: block;
   margin-top: 8px;
   border: #000000 solid 2px;
   border-radius: 4px;
-  width: 100%;
+  width: 300px;
   padding: 0;
   margin-bottom: 12px;
+  font-family: "CabinetGrotesk", sans-serif;
+}
+
+.caption-form__button {
+  padding: 10px;
+  font-family: "CabinetGrotesk", sans-serif;
+  cursor: pointer;
+  border: none;
+  background-color: #0a3c59;
+  color: white;
+  border-radius: 4px;
+  transition: background-color 0.3s ease;
+}
+
+.caption-form__button:hover {
+  background-color: #00000099;
+}
+
+.caption-form__error {
+  color: red;
+  margin-top: 10px;
+  font-size: 14px;
 }
 
 @media screen and (max-width: 627px) {
-  .page__content {
-    padding: 0;
-  }
-  .modal__header {
-    text-align: center;
+  .caption-form {
+    padding: 0 20px 20px;
   }
 
-  .page__caption-form {
-    padding-bottom: 20px;
+  .caption-form__header {
+    text-align: center;
   }
 }

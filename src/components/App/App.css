@@ -1,17 +1,17 @@
 @font-face {
   src: url("../../vendor/fonts/CabinetGrotesk-Regular.woff") format("woff");
-  font-family: "sans-serif";
+  font-family: "CabinetGrotesk";
 }
 
 .page {
   background-color: #f3f3f3;
-  font-family: sans-serif;
+  font-family: "CabinetGrotesk", sans-serif;
   font-weight: 700;
+  max-width: 100%;
 }
 
 .page__content {
   margin: 0 auto;
-  max-width: 1360px;
   padding: 0 40px;
 }
 
@@ -39,6 +39,7 @@
   width: 100%;
   padding: 0 0 4px;
   margin-bottom: 12px;
+  font-family: "CabinetGrotesk", sans-serif;
 }
 
 .modal__radio-btns {
@@ -47,6 +48,7 @@
   border: none;
   display: flex;
   flex-direction: column;
+  font-family: "CabinetGrotesk", sans-serif;
 }
 
 .modal__legend {
@@ -74,6 +76,7 @@
   cursor: pointer;
   border-radius: 4px;
   transition: background-color 0.3s ease;
+  font-family: "CabinetGrotesk", sans-serif;
 }
 
 .modal__submit:hover {

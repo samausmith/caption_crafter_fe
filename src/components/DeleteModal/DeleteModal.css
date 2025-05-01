@@ -55,6 +55,7 @@
   display: flex;
   flex-direction: column;
   gap: 24px;
+  font-family: "CabinetGrotesk", sans-serif;
 }
 
 .modal__confirm-delete-btn {
@@ -63,6 +64,7 @@
   color: #ff4d00;
   padding: 0;
   cursor: pointer;
+  font-family: "CabinetGrotesk", sans-serif;
 }
 
 .modal__cancel-btn {
@@ -70,4 +72,5 @@
   border-style: none;
   padding: 0;
   cursor: pointer;
+  font-family: "CabinetGrotesk", sans-serif;
 }
