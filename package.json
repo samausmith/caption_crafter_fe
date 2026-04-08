@@ -3,13 +3,13 @@
   "private": true,
   "version": "0.0.0",
   "type": "module",
-  "homepage": "https://caption-crafter.crabdance.com",
+  "homepage": "https://caption-crafter.uk",
   "scripts": {
     "dev": "vite --open",
     "build": "vite build",
     "lint": "eslint .",
     "preview": "vite preview",
-    "deploy": "npm run build && scp -r ./dist/* samausmith@caption-crafter.crabdance.com:/home/samausmith/frontend"
+    "deploy": "npm run build && scp -r ./dist/* samausmith@caption-crafter.uk:/home/samausmith/frontend"
   },
   "dependencies": {
     "axios": "^1.8.3",

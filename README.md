@@ -25,7 +25,7 @@ This is the React frontend for the Caption Crafter web app — a tool that lets 
 
 ## Deployment
 
-- [Domain](https://www.caption-crafter.crabdance.com/)
+- [Domain](https://www.caption-crafter.uk/)
 
 ## Backend
 
